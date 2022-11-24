@@ -41,13 +41,15 @@
       <form class="createAcc hidden">
         <input
           type="text"
-          placeholder="Name"
+          placeholder="name & surname"
           class="login__input create__input--name"
         />
         <input
           type="text"
-          placeholder="Surname"
-          class="login__input create__input--surname"
+          placeholder="username"
+          minlength="2"
+          maxlength="4"
+          class="login__input create__input--username"
         />
         <input
           type="password"
@@ -55,6 +57,7 @@
           maxlength="4"
           class="login__input create__input--password"
         />
+
         <button class="create__btn">&rarr;</button>
       </form>
     </nav>

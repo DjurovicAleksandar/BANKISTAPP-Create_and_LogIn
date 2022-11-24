@@ -69,7 +69,7 @@ const btnSort = document.querySelector('.btn--sort');
 
 const inputLoginUsername = document.querySelector('.login__input--user');
 const inputCreateName = document.querySelector('.create__input--name');
-const inputCreateSurname = document.querySelector('.create__input--surname');
+const inputCreateUsername = document.querySelector('.create__input--username');
 const inputCreatePassword = document.querySelector('.create__input--password');
 const inputLoginPin = document.querySelector('.login__input--pin');
 const inputTransferTo = document.querySelector('.form__input--to');
@@ -263,13 +263,14 @@ btnCreate.addEventListener('click', function (e) {
   e.preventDefault();
   createAccount(
     inputCreateName.value,
-    inputCreateSurname.value,
+    inputCreateUsername.value,
     +inputCreatePassword.value
   );
   inputCreateName.value =
-    inputCreateSurname.value =
+    inputCreateUsername.value =
     inputCreatePassword.value =
       '';
+  inputCreate.classList.add('hidden');
 });
 
 btnTransfer.addEventListener('click', function (e) {
@@ -360,78 +361,56 @@ btnSort.addEventListener(`click`, function () {
   sorting = !sorting;
 });
 
-[labelWelcome, labelCreate].forEach(el => {
-  if (el === labelWelcome) {
-    el.addEventListener('click', function (e) {
-      console.log(inputLoginUsername);
-      inputLogin.classList.remove('hidden');
-      inputLoginUsername.focus();
-      inputCreate.classList.add('hidden');
-    });
-  }
+//Welcome screen
 
-  if (el === labelCreate) {
-    el.addEventListener('click', function (e) {
-      e.preventDefault();
-      inputCreate.classList.remove('hidden');
-      inputLogin.classList.add('hidden');
-      inputCreateName.focus();
-    });
+document.querySelector('nav').addEventListener('click', function (e) {
+  const login = e.target.closest('.welcome');
+  const create = e.target.closest('.create');
+
+  if (login) {
+    inputLogin.classList.remove('hidden');
+    inputLoginUsername.focus();
+    inputCreate.classList.add('hidden');
+  }
+  if (create) {
+    inputCreate.classList.remove('hidden');
+    inputLogin.classList.add('hidden');
+    inputCreateName.focus();
   }
 });
 
-function createAccount(name, surname, pin) {
+function createAccount(name, username, pin) {
   const account = {
-    owner: `${name} ${surname}`,
+    owner: `${name}`,
     movements: [],
     interestRate: Math.trunc(Math.random() * 3) + 1,
     pin: pin,
 
     movementsDates: [
-      '2019-11-01T13:15:33.035Z',
-      '2019-11-30T09:48:16.867Z',
-      '2019-12-25T06:04:23.907Z',
-      '2020-01-25T14:18:46.235Z',
-      '2020-02-05T16:33:06.386Z',
-      '2022-02-22T14:43:26.374Z',
-      '2022-02-25T18:49:59.371Z',
-      '2022-02-26T12:01:20.894Z',
+      '2020-11-01T13:15:33.035Z',
+      '2020-07-30T09:48:16.867Z',
+      '2020-12-25T06:04:23.907Z',
+      '2021-09-25T14:18:46.235Z',
+      '2021-02-05T16:33:06.386Z',
+      '2022-08-22T14:43:26.374Z',
+      '2022-04-25T18:49:59.371Z',
+      '2022-03-26T12:01:20.894Z',
     ],
-    currency: 'BAM',
+    currency: 'USD',
     locale: 'en-US',
   };
 
   const createRandomMovements = acc => {
     const arrSize = Math.trunc(Math.random() * 15) + 1;
     for (let i = 0; i <= arrSize; i++) {
-      const movement = Math.trunc(Math.random() * 90071) + 1;
-      if ([2, 7, 4, 14, 0].includes(i)) acc.push(-movement);
+      const movement = Math.trunc(Math.random() * 1500) + 1;
+      if ([2, 13, 4, 0].includes(i)) acc.push(-movement);
       else acc.push(movement);
     }
   };
 
   createRandomMovements(account.movements);
-
+  account.username = username;
   accounts.push(account);
-  nameInitial(accounts);
+  displayLabel(account);
 }
-
-// const account2 = {
-//   owner: 'Jessica Davis',
-//   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30, 980],
-//   interestRate: 1.5,
-//   pin: 2222,
-
-//   movementsDates: [
-//     '2019-11-01T13:15:33.035Z',
-//     '2019-11-30T09:48:16.867Z',
-//     '2019-12-25T06:04:23.907Z',
-//     '2020-01-25T14:18:46.235Z',
-//     '2020-02-05T16:33:06.386Z',
-//     '2022-02-22T14:43:26.374Z',
-//     '2022-02-25T18:49:59.371Z',
-//     '2022-02-26T12:01:20.894Z',
-//   ],
-//   currency: 'USD',
-//   locale: 'en-US',
-// };

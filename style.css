@@ -56,6 +56,13 @@ nav {
   display: flex;
 }
 
+input::placeholder {
+  font-size: 1.2rem;
+}
+.create__input--name::placeholder {
+  font-size: 0.9rem;
+}
+
 .login__input {
   border: none;
   padding: 0.5rem 2rem;
