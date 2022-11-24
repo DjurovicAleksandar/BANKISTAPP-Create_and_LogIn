@@ -86,6 +86,8 @@ console.log(Boolean(undefined));
 // Functions
 //Date
 const movementDate = (date, locale) => {
+  if (!date) return;
+  if (!locale) return;
   const calcDayPassed = (date1, date2) =>
     Math.floor(Math.abs((date1 - date2) / (1000 * 60 * 60 * 24)));
 
@@ -344,6 +346,7 @@ btnClose.addEventListener(`click`, function (e) {
     accounts.splice(indexDel, 1);
     containerApp.style.opacity = 0;
     labelWelcome.textContent = `Log in to get started`;
+    labelCreate.textContent = 'Create account';
   } else {
     labelBalance.textContent = `Wrong input.`;
     setTimeout(function () {
@@ -396,15 +399,15 @@ function createAccount(name, username, pin) {
       '2022-04-25T18:49:59.371Z',
       '2022-03-26T12:01:20.894Z',
     ],
-    currency: 'USD',
-    locale: 'en-US',
+    currency: 'EUR',
+    locale: 'pt-PT',
   };
 
   const createRandomMovements = acc => {
-    const arrSize = Math.trunc(Math.random() * 15) + 1;
+    const arrSize = Math.trunc(Math.random() * 8) + 1;
     for (let i = 0; i <= arrSize; i++) {
       const movement = Math.trunc(Math.random() * 1500) + 1;
-      if ([2, 13, 4, 0].includes(i)) acc.push(-movement);
+      if ([1, 4, 7].includes(i)) acc.push(-(movement - 300));
       else acc.push(movement);
     }
   };
